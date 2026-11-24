@@ -1,0 +1,779 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#17365f" />
+    <link rel="icon" href="data:," />
+    <title>LMS — Learning Management System</title>
+    <style>
+      :root {
+        color-scheme: light;
+        font-family: Inter, "Segoe UI", Arial, sans-serif;
+        font-synthesis: none;
+        text-rendering: optimizeLegibility;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        --navy: #17365f;
+        --navy-deep: #102746;
+        --navy-ink: #17263b;
+        --muted: #727f90;
+        --line: #e2e8f0;
+      }
+
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        width: 100%;
+        min-width: 320px;
+        min-height: 100%;
+        margin: 0;
+      }
+
+      body {
+        min-height: 100vh;
+        min-height: 100dvh;
+      }
+
+      button {
+        font: inherit;
+      }
+
+      .lms-login {
+        position: relative;
+        display: flex;
+        width: 100%;
+        min-height: 100vh;
+        min-height: 100dvh;
+        flex-direction: column;
+        overflow: hidden;
+        color: var(--navy-ink);
+        background: linear-gradient(132deg, #fff 0%, #f5f8fc 38%, #dce6f2 68%, #17365f 100%);
+        isolation: isolate;
+      }
+
+      .lms-background {
+        position: absolute;
+        z-index: -1;
+        inset: 0;
+        pointer-events: none;
+        background:
+          radial-gradient(ellipse at 11% 12%, rgba(255, 255, 255, .94) 0%, rgba(255, 255, 255, 0) 36%),
+          radial-gradient(ellipse at 92% 78%, rgba(29, 68, 113, .36) 0%, rgba(29, 68, 113, 0) 40%);
+      }
+
+      .lms-topbar,
+      .lms-brand,
+      .lms-secure {
+        display: flex;
+        align-items: center;
+      }
+
+      .lms-topbar {
+        z-index: 1;
+        justify-content: space-between;
+        width: min(1600px, calc(100% - 160px));
+        height: 88px;
+        flex: 0 0 auto;
+        margin: 0 auto;
+      }
+
+      .lms-brand {
+        gap: 17px;
+      }
+
+      .lms-wordmark,
+      .lms-footer-logo {
+        color: var(--navy);
+        font-size: 33px;
+        font-weight: 800;
+        letter-spacing: -2px;
+        line-height: 1;
+      }
+
+      .lms-brand-divider {
+        width: 1px;
+        height: 31px;
+        background: rgba(23, 54, 95, .28);
+      }
+
+      .lms-brand-subtitle {
+        color: #475b75;
+        font-size: 8px;
+        font-weight: 800;
+        letter-spacing: 1.1px;
+        line-height: 1.55;
+      }
+
+      .lms-secure {
+        gap: 9px;
+        color: #435a75;
+        font-size: 12px;
+        font-weight: 600;
+      }
+
+      .lms-secure svg {
+        width: 16px;
+        height: 16px;
+        color: var(--navy);
+      }
+
+      .lms-stage {
+        position: relative;
+        display: flex;
+        width: 100%;
+        flex: 1 0 auto;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 12px 40px 28px;
+      }
+
+      .lms-card {
+        display: grid;
+        width: min(1450px, calc(100% - 20px));
+        min-height: 650px;
+        grid-template-columns: minmax(460px, .92fr) minmax(580px, 1.08fr);
+        overflow: hidden;
+        border: 1px solid rgba(255, 255, 255, .88);
+        border-radius: 14px;
+        background: #fff;
+        box-shadow: 0 30px 90px rgba(23, 48, 79, .2), 0 3px 14px rgba(23, 48, 79, .08);
+      }
+
+      .lms-welcome-panel {
+        position: relative;
+        display: flex;
+        min-height: 650px;
+        flex-direction: column;
+        justify-content: space-between;
+        overflow: hidden;
+        padding: 43px 48px 37px;
+        color: #fff;
+        background: linear-gradient(146deg, #315780 0%, #1d416c 43%, #102746 100%);
+      }
+
+      .lms-welcome-panel::before,
+      .lms-welcome-panel::after {
+        position: absolute;
+        z-index: 0;
+        border: 1px solid rgba(255, 255, 255, .13);
+        border-radius: 50%;
+        content: "";
+        pointer-events: none;
+      }
+
+      .lms-welcome-panel::before {
+        top: 16%;
+        right: -24%;
+        width: 560px;
+        height: 560px;
+      }
+
+      .lms-welcome-panel::after {
+        top: 25%;
+        right: -12%;
+        width: 390px;
+        height: 390px;
+      }
+
+      .lms-orbit {
+        position: absolute;
+        z-index: 0;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, .045);
+        pointer-events: none;
+      }
+
+      .lms-orbit-one {
+        top: 11%;
+        right: 10%;
+        width: 11px;
+        height: 11px;
+      }
+
+      .lms-orbit-two {
+        right: 22%;
+        bottom: 23%;
+        width: 6px;
+        height: 6px;
+        background: #bcd2eb;
+      }
+
+      .lms-panel-topline,
+      .lms-welcome-copy,
+      .lms-panel-bottom {
+        position: relative;
+        z-index: 1;
+      }
+
+      .lms-panel-topline {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        color: rgba(255, 255, 255, .82);
+        font-size: 9px;
+        font-weight: 700;
+        letter-spacing: 1.8px;
+      }
+
+      .lms-panel-mark {
+        width: 25px;
+        height: 2px;
+        background: #d8e7f8;
+      }
+
+      .lms-welcome-copy {
+        margin-top: auto;
+        margin-bottom: 74px;
+      }
+
+      .lms-eyebrow,
+      .lms-login-kicker {
+        margin: 0 0 19px;
+        font-size: 10px;
+        font-weight: 800;
+        letter-spacing: 1.5px;
+      }
+
+      .lms-eyebrow {
+        color: #cadcf0;
+      }
+
+      .lms-welcome-copy h2 {
+        margin: 0;
+        font-size: clamp(44px, 4vw, 60px);
+        font-weight: 600;
+        letter-spacing: -2.8px;
+        line-height: 1.08;
+      }
+
+      .lms-panel-subtitle {
+        max-width: 340px;
+        margin: 21px 0 0;
+        color: rgba(255, 255, 255, .81);
+        font-size: 14px;
+        line-height: 1.75;
+      }
+
+      .lms-panel-bottom {
+        display: flex;
+        flex-direction: column;
+        gap: 13px;
+        padding-top: 17px;
+        border-top: 1px solid rgba(255, 255, 255, .31);
+        color: rgba(255, 255, 255, .8);
+        font-size: 9px;
+        font-weight: 700;
+        letter-spacing: 1.5px;
+      }
+
+      .lms-panel-line {
+        width: 36px;
+        height: 2px;
+        background: #d8e7f8;
+      }
+
+      .lms-login-panel {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: 72px clamp(58px, 6.1vw, 112px) 43px;
+        background: #fff;
+      }
+
+      .lms-form-top {
+        max-width: 555px;
+      }
+
+      .lms-login-kicker {
+        display: block;
+        margin-bottom: 20px;
+        color: #5d7592;
+      }
+
+      .lms-login-panel h1 {
+        max-width: 580px;
+        margin: 0;
+        color: #1b2e47;
+        font-size: clamp(30px, 2.2vw, 40px);
+        font-weight: 700;
+        letter-spacing: -1.6px;
+        line-height: 1.2;
+      }
+
+      .lms-system-name {
+        margin: 8px 0 0;
+        color: var(--navy);
+        font-size: 16px;
+        font-weight: 700;
+        letter-spacing: .1px;
+      }
+
+      .lms-intro {
+        margin: 16px 0 0;
+        color: var(--muted);
+        font-size: 15px;
+        letter-spacing: .05px;
+      }
+
+      .lms-sso {
+        width: 100%;
+        max-width: 555px;
+        margin-top: 42px;
+        padding: 25px 25px 18px;
+        border: 1px solid #e0e7ef;
+        border-radius: 8px;
+        background: #fff;
+      }
+
+      .lms-sso-heading {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+      }
+
+      .lms-sso-icon {
+        display: grid;
+        width: 42px;
+        height: 42px;
+        flex: 0 0 auto;
+        place-items: center;
+        border: 1px solid #d9e4f0;
+        border-radius: 6px;
+        color: var(--navy);
+        background: #f3f7fb;
+      }
+
+      .lms-sso-icon svg {
+        width: 19px;
+        height: 19px;
+      }
+
+      .lms-sso-heading h2 {
+        margin: 0;
+        color: #23344a;
+        font-size: 15px;
+        font-weight: 700;
+        letter-spacing: -.15px;
+      }
+
+      .lms-sso-heading p {
+        margin: 4px 0 0;
+        color: #788596;
+        font-size: 12px;
+      }
+
+      .lms-microsoft-button {
+        position: relative;
+        display: flex;
+        width: 100%;
+        height: 54px;
+        align-items: center;
+        justify-content: center;
+        gap: 13px;
+        margin-top: 22px;
+        border: 1px solid #17365f;
+        border-radius: 6px;
+        color: #fff;
+        background: #17365f;
+        font-size: 14px;
+        font-weight: 700;
+        cursor: default;
+        transition: transform 160ms ease, background 160ms ease;
+      }
+
+      .lms-microsoft-button:hover {
+        background: #102746;
+        transform: translateY(-1px);
+      }
+
+      .lms-ms-mark {
+        display: grid;
+        grid-template-columns: 7px 7px;
+        grid-template-rows: 7px 7px;
+        gap: 2px;
+        padding: 1px;
+        background: #fff;
+      }
+
+      .lms-ms-mark span:nth-child(1) { background: #f25022; }
+      .lms-ms-mark span:nth-child(2) { background: #7fba00; }
+      .lms-ms-mark span:nth-child(3) { background: #00a4ef; }
+      .lms-ms-mark span:nth-child(4) { background: #ffb900; }
+
+      .lms-button-arrow {
+        position: absolute;
+        right: 17px;
+        width: 17px;
+        height: 17px;
+        color: rgba(255, 255, 255, .8);
+      }
+
+      .lms-security-note {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 7px;
+        margin-top: 16px;
+        color: #7a8796;
+        font-size: 10px;
+      }
+
+      .lms-security-note svg {
+        width: 14px;
+        height: 14px;
+        color: #547293;
+      }
+
+      .lms-login-bottom {
+        display: flex;
+        width: 100%;
+        max-width: 555px;
+        align-items: center;
+        gap: 18px;
+        margin-top: 43px;
+        padding-top: 20px;
+        border-top: 1px solid var(--line);
+      }
+
+      .lms-language-link,
+      .lms-cookie-link {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 4px 0;
+        border: 0;
+        color: #52647a;
+        background: transparent;
+        font-size: 11px;
+        font-weight: 600;
+        cursor: default;
+      }
+
+      .lms-language-link svg:first-child {
+        color: var(--navy);
+      }
+
+      .lms-language-link svg,
+      .lms-cookie-link svg {
+        width: 15px;
+        height: 15px;
+      }
+
+      .lms-cookie-link {
+        color: var(--navy);
+      }
+
+      .lms-bottom-divider {
+        width: 1px;
+        height: 18px;
+        background: #d9e1eb;
+      }
+
+      .lms-footer {
+        z-index: 1;
+        display: flex;
+        width: min(1600px, calc(100% - 160px));
+        min-height: 76px;
+        flex: 0 0 auto;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto;
+        border-top: 1px solid rgba(255, 255, 255, .32);
+      }
+
+      .lms-footer-logo {
+        color: #fff;
+        font-size: 22px;
+        letter-spacing: -1.2px;
+      }
+
+      @media (max-width: 1200px) {
+        .lms-topbar,
+        .lms-footer {
+          width: calc(100% - 80px);
+        }
+
+        .lms-card {
+          grid-template-columns: minmax(360px, .85fr) minmax(460px, 1.15fr);
+        }
+
+        .lms-welcome-panel {
+          padding-right: 35px;
+          padding-left: 35px;
+        }
+
+        .lms-login-panel {
+          padding-right: 54px;
+          padding-left: 54px;
+        }
+      }
+
+      @media (max-width: 900px) {
+        .lms-login {
+          overflow: auto;
+        }
+
+        .lms-topbar,
+        .lms-footer {
+          width: calc(100% - 48px);
+        }
+
+        .lms-topbar {
+          height: 76px;
+        }
+
+        .lms-stage {
+          padding: 12px 24px 28px;
+        }
+
+        .lms-card {
+          width: min(650px, 100%);
+          min-height: 0;
+          grid-template-columns: 1fr;
+        }
+
+        .lms-welcome-panel {
+          display: none;
+        }
+
+        .lms-login-panel {
+          padding: 48px clamp(26px, 8vw, 58px) 35px;
+        }
+
+        .lms-login-panel h1 {
+          font-size: clamp(29px, 5vw, 38px);
+        }
+
+        .lms-sso {
+          margin-top: 34px;
+        }
+
+        .lms-login-bottom {
+          margin-top: 32px;
+        }
+      }
+
+      @media (max-width: 560px) {
+        .lms-topbar,
+        .lms-footer {
+          width: calc(100% - 36px);
+        }
+
+        .lms-topbar {
+          height: 68px;
+        }
+
+        .lms-wordmark {
+          font-size: 29px;
+        }
+
+        .lms-brand {
+          gap: 12px;
+        }
+
+        .lms-brand-subtitle {
+          font-size: 7px;
+          letter-spacing: .8px;
+        }
+
+        .lms-secure {
+          font-size: 0;
+        }
+
+        .lms-secure svg {
+          width: 19px;
+          height: 19px;
+        }
+
+        .lms-stage {
+          padding: 9px 14px 22px;
+        }
+
+        .lms-card {
+          border-radius: 8px;
+        }
+
+        .lms-login-panel {
+          padding: 33px 22px 25px;
+        }
+
+        .lms-login-kicker {
+          margin-bottom: 14px;
+          font-size: 9px;
+        }
+
+        .lms-login-panel h1 {
+          font-size: 28px;
+          letter-spacing: -1px;
+        }
+
+        .lms-system-name {
+          font-size: 14px;
+        }
+
+        .lms-intro {
+          margin-top: 12px;
+          font-size: 13px;
+        }
+
+        .lms-sso {
+          margin-top: 27px;
+          padding: 18px 15px 15px;
+        }
+
+        .lms-sso-heading h2 {
+          font-size: 13px;
+        }
+
+        .lms-sso-heading p {
+          font-size: 10px;
+        }
+
+        .lms-sso-icon {
+          width: 36px;
+          height: 36px;
+        }
+
+        .lms-microsoft-button {
+          height: 50px;
+          font-size: 12px;
+        }
+
+        .lms-button-arrow {
+          display: none;
+        }
+
+        .lms-security-note {
+          font-size: 9px;
+        }
+
+        .lms-login-bottom {
+          flex-wrap: wrap;
+          gap: 12px;
+          margin-top: 24px;
+        }
+
+        .lms-language-link,
+        .lms-cookie-link {
+          font-size: 10px;
+        }
+
+        .lms-footer {
+          min-height: 66px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="lms-login">
+      <div class="lms-background" aria-hidden="true"></div>
+
+      <header class="lms-topbar">
+        <div class="lms-brand" aria-label="LMS Learning Management System">
+          <span class="lms-wordmark">LMS</span>
+          <span class="lms-brand-divider" aria-hidden="true"></span>
+          <span class="lms-brand-subtitle">LEARNING<br />MANAGEMENT SYSTEM</span>
+        </div>
+        <div class="lms-secure">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <path d="M12 3 19 6v5c0 4.4-2.9 8.2-7 10-4.1-1.8-7-5.6-7-10V6l7-3Z" />
+            <path d="m9 12 2 2 4-4" />
+          </svg>
+          Secure learning portal
+        </div>
+      </header>
+
+      <section class="lms-stage" aria-label="LMS sign in">
+        <div class="lms-card">
+          <aside class="lms-welcome-panel">
+            <div class="lms-orbit lms-orbit-one" aria-hidden="true"></div>
+            <div class="lms-orbit lms-orbit-two" aria-hidden="true"></div>
+            <div class="lms-panel-topline">
+              <span class="lms-panel-mark" aria-hidden="true"></span>
+              <span>LEARN WITHOUT BOUNDARIES</span>
+            </div>
+            <div class="lms-welcome-copy">
+              <p class="lms-eyebrow">LEARNING PORTAL</p>
+              <h2>Your learning<br />starts here.</h2>
+              <p class="lms-panel-subtitle">One place for every step of your learning journey.</p>
+            </div>
+            <div class="lms-panel-bottom">
+              <span class="lms-panel-line" aria-hidden="true"></span>
+              <span>LEARN · GROW · CONNECT</span>
+            </div>
+          </aside>
+
+          <div class="lms-login-panel">
+            <div class="lms-form-top">
+              <span class="lms-login-kicker">WELCOME</span>
+              <h1>Hi, welcome to LMS</h1>
+              <p class="lms-system-name">Learning Management System</p>
+              <p class="lms-intro">Enter your details to log in your account</p>
+            </div>
+
+            <div class="lms-sso">
+              <div class="lms-sso-heading">
+                <span class="lms-sso-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                    <path d="M3.5 20.5h17M5 20.5V8l7-4 7 4v12.5M9 20.5v-5h6v5M8.5 9.5h1m5 0h1m-7 3h1m5 0h1" />
+                  </svg>
+                </span>
+                <div>
+                  <h2>Login with your SSO account</h2>
+                  <p>Use your university account to continue.</p>
+                </div>
+              </div>
+              <button type="button" class="lms-microsoft-button">
+                <span class="lms-ms-mark" aria-hidden="true">
+                  <span></span><span></span><span></span><span></span>
+                </span>
+                <span>Sign in with Microsoft</span>
+                <svg class="lms-button-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+                  <path d="M7 17 17 7M7 7h10v10" />
+                </svg>
+              </button>
+              <div class="lms-security-note">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+                  <path d="M12 3 19 6v5c0 4.4-2.9 8.2-7 10-4.1-1.8-7-5.6-7-10V6l7-3Z" />
+                  <path d="m9 12 2 2 4-4" />
+                </svg>
+                Secure sign-in through your university account
+              </div>
+            </div>
+
+            <div class="lms-login-bottom">
+              <button class="lms-language-link" type="button" aria-label="Language: Bahasa Indonesia">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+                  <circle cx="12" cy="12" r="9" />
+                  <path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18" />
+                </svg>
+                <span>Bahasa Indonesia (id)</span>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+                  <path d="m6 9 6 6 6-6" />
+                </svg>
+              </button>
+              <span class="lms-bottom-divider" aria-hidden="true"></span>
+              <button class="lms-cookie-link" type="button">
+                Pemberitahuan kuki
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+                  <path d="M7 17 17 7M7 7h10v10" />
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <footer class="lms-footer" aria-label="LMS logo">
+        <span class="lms-footer-logo">LMS</span>
+      </footer>
+    </main>
+  </body>
+</html>

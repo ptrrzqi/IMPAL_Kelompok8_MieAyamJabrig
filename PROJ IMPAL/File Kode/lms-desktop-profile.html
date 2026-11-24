@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LMS - User Profile</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: '#ed1e28',
+            brandDark: '#c7141d',
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-[#fcfdfd] text-[#1e293b] font-sans antialiased flex h-screen overflow-hidden">
+
+  <!-- SIDEBAR KIRI -->
+  <aside class="w-64 bg-white border-r border-gray-150 flex flex-col justify-between shrink-0 p-5 hidden md:flex">
+    <div class="flex flex-col">
+      
+      <!-- LOGO: LMS | LEARNING MANAGEMENT SYSTEM -->
+      <div class="flex items-center gap-2.5 mb-6 select-none">
+        <span class="text-xl font-black text-brand tracking-tight leading-none">LMS</span>
+        <div class="h-6 w-px bg-gray-200"></div>
+        <div class="flex flex-col justify-center leading-[1.05]">
+          <span class="text-[9px] font-extrabold text-gray-700 tracking-wider">LEARNING</span>
+          <span class="text-[9px] font-extrabold text-gray-700 tracking-wider">MANAGEMENT SYSTEM</span>
+        </div>
+      </div>
+
+      <!-- User Selector Card (Sidebar) -->
+      <div class="flex items-center justify-between p-2.5 bg-red-50/50 rounded-xl border border-red-100 mb-6 cursor-pointer">
+        <div class="flex items-center gap-2.5 overflow-hidden">
+          <div class="w-8 h-8 rounded-full bg-brand text-white font-bold text-xs flex items-center justify-center shrink-0">
+            U
+          </div>
+          <div class="truncate">
+            <p id="sidebar-username" class="text-xs font-bold text-gray-800 truncate">USERNAME</p>
+            <p class="text-[10px] text-brand font-medium">Viewing Profile</p>
+          </div>
+        </div>
+        <i data-lucide="check" class="w-4 h-4 text-brand shrink-0"></i>
+      </div>
+
+      <!-- Navigation Section: LEARNING SPACE -->
+      <div class="mb-5">
+        <span class="text-[10px] font-bold text-gray-400 uppercase tracking-widest block px-2 mb-2">Learning Space</span>
+        <nav class="space-y-1">
+          <a href="#" class="flex items-center gap-3 px-3 py-2 rounded-lg text-xs font-medium text-gray-600 hover:bg-gray-50 transition">
+            <i data-lucide="layout-grid" class="w-4 h-4 text-gray-400"></i>
+            Dashboard
+          </a>
+          <a href="#" class="flex items-center gap-3 px-3 py-2 rounded-lg text-xs font-medium text-gray-600 hover:bg-gray-50 transition">
+            <i data-lucide="graduation-cap" class="w-4 h-4 text-gray-400"></i>
+            My courses
+          </a>
+          <a href="#" class="flex items-center justify-between px-3 py-2 rounded-lg text-xs font-medium text-gray-600 hover:bg-gray-50 transition">
+            <div class="flex items-center gap-3">
+              <i data-lucide="bell" class="w-4 h-4 text-gray-400"></i>
+              Notifications
+            </div>
+            <span class="bg-brand text-white text-[10px] font-bold px-1.5 py-0.2 rounded-full">3</span>
+          </a>
+          <a href="#" class="flex items-center justify-between px-3 py-2 rounded-lg text-xs font-medium text-gray-600 hover:bg-gray-50 transition">
+            <div class="flex items-center gap-3">
+              <i data-lucide="message-square" class="w-4 h-4 text-gray-400"></i>
+              Messages
+            </div>
+            <span class="text-[10px] text-red-500 font-semibold bg-red-50 px-1.5 py-0.5 rounded-full">2</span>
+          </a>
+          <a href="#" class="flex items-center gap-3 px-3 py-2 rounded-lg text-xs font-medium text-gray-600 hover:bg-gray-50 transition">
+            <i data-lucide="users" class="w-4 h-4 text-gray-400"></i>
+            Classmates
+          </a>
+        </nav>
+      </div>
+
+      <!-- Navigation Section: PREFERENCES -->
+      <div>
+        <span class="text-[10px] font-bold text-gray-400 uppercase tracking-widest block px-2 mb-2">Preferences</span>
+        <nav class="space-y-1">
+          <a href="#" class="flex items-center gap-3 px-3 py-2 rounded-lg text-xs font-bold bg-red-50 text-brand">
+            <i data-lucide="user" class="w-4 h-4 text-brand"></i>
+            Profile & Account
+          </a>
+          <a href="#" class="flex items-center gap-3 px-3 py-2 rounded-lg text-xs font-medium text-gray-600 hover:bg-gray-50 transition">
+            <i data-lucide="sliders" class="w-4 h-4 text-gray-400"></i>
+            Settings
+          </a>
+          <a href="#" class="flex items-center gap-3 px-3 py-2 rounded-lg text-xs font-medium text-gray-600 hover:bg-gray-50 transition">
+            <i data-lucide="help-circle" class="w-4 h-4 text-gray-400"></i>
+            Help center
+          </a>
+        </nav>
+      </div>
+
+    </div>
+
+    <!-- Bottom Promo / Status -->
+    <div>
+      <div class="p-3.5 bg-gray-50 border border-gray-100 rounded-xl mb-3">
+        <div class="flex items-center gap-2 mb-1">
+          <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+          <p class="text-xs font-bold text-gray-800">Account Active</p>
+        </div>
+        <p class="text-[10px] text-gray-500">Academic Year 2026/2027</p>
+      </div>
+      <div class="text-[10px] text-gray-400 font-medium px-2">LMS Portal</div>
+    </div>
+  </aside>
+
+  <!-- KONTEN KANAN -->
+  <div class="flex-1 flex flex-col min-w-0 overflow-y-auto">
+    
+    <!-- Topbar Header -->
+    <header class="h-16 bg-white border-b border-gray-150 px-8 flex items-center justify-between shrink-0">
+      <!-- Breadcrumb -->
+      <div class="flex items-center gap-2 text-xs text-gray-400">
+        <span>Learning space</span>
+        <i data-lucide="chevron-right" class="w-3 h-3 text-gray-300"></i>
+        <span>Account</span>
+        <i data-lucide="chevron-right" class="w-3 h-3 text-gray-300"></i>
+        <span class="text-gray-800 font-medium">Profile</span>
+      </div>
+
+      <!-- Right Header Actions -->
+      <div class="flex items-center gap-5">
+        <button class="text-gray-400 hover:text-gray-600">
+          <i data-lucide="search" class="w-4 h-4"></i>
+        </button>
+
+        <div class="relative cursor-pointer">
+          <i data-lucide="bell" class="w-4 h-4 text-gray-600"></i>
+          <span class="absolute -top-1.5 -right-1.5 bg-brand text-white text-[9px] font-bold px-1 rounded-full">3</span>
+        </div>
+
+        <!-- User Profile Pill -->
+        <div class="flex items-center gap-2 pl-3 border-l border-gray-200 cursor-pointer">
+          <div class="w-7 h-7 rounded-full bg-brand text-white font-bold text-xs flex items-center justify-center">
+            U
+          </div>
+          <div class="text-left hidden sm:block">
+            <p class="text-xs font-bold text-gray-800 leading-tight">USERNAME</p>
+            <p class="text-[10px] text-gray-400 leading-tight">Student</p>
+          </div>
+          <i data-lucide="chevron-down" class="w-3 h-3 text-gray-400 ml-1"></i>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Section -->
+    <main class="p-8 max-w-7xl w-full">
+      
+      <!-- PROFILE HERO CARD -->
+      <div class="bg-white border border-gray-150 rounded-2xl p-6 sm:p-8 mb-6 shadow-2xs">
+        <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
+          
+          <div class="flex items-center gap-5">
+            <!-- Profile Picture with Edit Icon -->
+            <div class="relative">
+              <div class="w-20 h-20 rounded-2xl bg-slate-100 border-2 border-gray-100 flex items-center justify-center text-slate-500 overflow-hidden shadow-xs">
+                <i data-lucide="user" class="w-10 h-10 text-gray-400"></i>
+              </div>
+              <button title="Change photo" class="absolute -bottom-1 -right-1 w-7 h-7 bg-brand hover:bg-brandDark text-white rounded-lg flex items-center justify-center shadow-xs transition">
+                <i data-lucide="camera" class="w-3.5 h-3.5"></i>
+              </button>
+            </div>
+
+            <!-- Profile Info -->
+            <div>
+              <div class="flex items-center gap-2">
+                <h1 id="profile-display-name" class="text-2xl font-bold text-gray-900 tracking-tight">USERNAME</h1>
+                <span class="inline-flex items-center gap-1 text-[11px] font-semibold text-emerald-700 bg-emerald-50 border border-emerald-200/60 px-2 py-0.5 rounded-full">
+                  <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+                  Active Student
+                </span>
+              </div>
+              <p class="text-xs text-gray-500 mt-1 flex items-center gap-2">
+                <span>Undergraduate Student</span>
+                <span class="text-gray-300">•</span>
+                <span>Informatics Faculty</span>
+              </p>
+            </div>
+          </div>
+
+          <!-- Actions -->
+          <div class="flex items-center gap-3 w-full sm:w-auto">
+            <button class="flex-1 sm:flex-initial px-4 py-2 border border-gray-200 text-gray-700 hover:bg-gray-50 text-xs font-semibold rounded-xl transition flex items-center justify-center gap-1.5">
+              <i data-lucide="share-2" class="w-3.5 h-3.5 text-gray-500"></i>
+              Share
+            </button>
+            <button class="flex-1 sm:flex-initial px-4 py-2 bg-brand hover:bg-brandDark text-white text-xs font-semibold rounded-xl transition shadow-2xs flex items-center justify-center gap-1.5">
+              <i data-lucide="edit-3" class="w-3.5 h-3.5"></i>
+              Edit Profile
+            </button>
+          </div>
+
+        </div>
+
+        <!-- Profile Tabs -->
+        <div class="flex border-b border-gray-100 mt-8 gap-6 text-xs font-semibold text-gray-500 overflow-x-auto">
+          <button class="pb-3 text-brand border-b-2 border-brand flex items-center gap-2">
+            <i data-lucide="user-check" class="w-3.5 h-3.5"></i>
+            User Details
+          </button>
+          <button class="pb-3 hover:text-gray-800 transition flex items-center gap-2">
+            <i data-lucide="book-open" class="w-3.5 h-3.5"></i>
+            Enrolled Courses
+          </button>
+          <button class="pb-3 hover:text-gray-800 transition flex items-center gap-2">
+            <i data-lucide="lock" class="w-3.5 h-3.5"></i>
+            Security & Login
+          </button>
+          <button class="pb-3 hover:text-gray-800 transition flex items-center gap-2">
+            <i data-lucide="history" class="w-3.5 h-3.5"></i>
+            Activity Log
+          </button>
+        </div>
+      </div>
+
+      <!-- MAIN PROFILE BODY GRID -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+        
+        <!-- Kolom Kiri: Detail Informasi (8 cols) -->
+        <div class="lg:col-span-8 space-y-6">
+          
+          <!-- Personal Information Card -->
+          <div class="bg-white border border-gray-150 rounded-2xl p-6 shadow-2xs">
+            <div class="flex items-center justify-between mb-5">
+              <h2 class="text-sm font-bold text-gray-900">Personal Information</h2>
+              <button class="text-brand hover:text-brandDark text-xs font-medium">Edit</button>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-5 text-xs">
+              <div class="p-3 bg-gray-50/70 rounded-xl border border-gray-100">
+                <span class="text-gray-400 block mb-1">Full Name</span>
+                <span class="font-bold text-gray-800 text-sm">USERNAME</span>
+              </div>
+              <div class="p-3 bg-gray-50/70 rounded-xl border border-gray-100">
+                <span class="text-gray-400 block mb-1">Student ID (NIM)</span>
+                <span class="font-bold text-gray-800 text-sm">1301210000</span>
+              </div>
+              <div class="p-3 bg-gray-50/70 rounded-xl border border-gray-100">
+                <span class="text-gray-400 block mb-1">Institutional Email</span>
+                <span class="font-bold text-gray-800 text-sm">username@student.telkomuniversity.ac.id</span>
+              </div>
+              <div class="p-3 bg-gray-50/70 rounded-xl border border-gray-100">
+                <span class="text-gray-400 block mb-1">Faculty / Major</span>
+                <span class="font-bold text-gray-800 text-sm">Informatics / S1 Informatika</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Academic & Session Information -->
+          <div class="bg-white border border-gray-150 rounded-2xl p-6 shadow-2xs">
+            <h2 class="text-sm font-bold text-gray-900 mb-5">System & Session Details</h2>
+            <div class="space-y-3 text-xs">
+              <div class="flex items-center justify-between py-2 border-b border-gray-100">
+                <span class="text-gray-500">First access to site</span>
+                <span class="font-medium text-gray-800">Monday, 1 September 2025, 08:00 AM</span>
+              </div>
+              <div class="flex items-center justify-between py-2 border-b border-gray-100">
+                <span class="text-gray-500">Last access to site</span>
+                <span class="font-medium text-gray-800">Today, 1 hour 54 mins ago</span>
+              </div>
+              <div class="flex items-center justify-between py-2 border-b border-gray-100">
+                <span class="text-gray-500">Current Login IP</span>
+                <span class="font-mono text-gray-700 bg-gray-100 px-2 py-0.5 rounded">114.122.xx.xx</span>
+              </div>
+              <div class="flex items-center justify-between py-2">
+                <span class="text-gray-500">Registered Browser</span>
+                <span class="font-medium text-gray-800">Chrome on Windows</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Kolom Kanan: Status & Ringkasan Cepat (4 cols) -->
+        <div class="lg:col-span-4 space-y-5">
+          
+          <!-- Summary Metrics -->
+          <div class="bg-white border border-gray-150 rounded-2xl p-5 shadow-2xs">
+            <span class="text-[10px] font-bold uppercase tracking-widest text-gray-400 block mb-4">Academic Snapshot</span>
+            
+            <div class="grid grid-cols-2 gap-3 mb-4">
+              <div class="p-3 bg-red-50/50 border border-red-100 rounded-xl text-center">
+                <span class="text-2xl font-black text-brand block">6</span>
+                <span class="text-[10px] font-semibold text-gray-600">Active Courses</span>
+              </div>
+              <div class="p-3 bg-gray-50 border border-gray-100 rounded-xl text-center">
+                <span class="text-2xl font-black text-gray-800 block">18</span>
+                <span class="text-[10px] font-semibold text-gray-600">Assignments Done</span>
+              </div>
+            </div>
+
+            <div class="p-3 bg-gray-50 rounded-xl flex items-center justify-between">
+              <div class="flex items-center gap-2">
+                <i data-lucide="award" class="w-4 h-4 text-brand"></i>
+                <span class="text-xs font-semibold text-gray-700">Attendance Rate</span>
+              </div>
+              <span class="text-xs font-bold text-emerald-600">96.5%</span>
+            </div>
+          </div>
+
+          <!-- Badges & Reports Download -->
+          <div class="bg-white border border-gray-150 rounded-2xl p-5 shadow-2xs">
+            <h3 class="text-xs font-bold text-gray-800 mb-3">Academic Reports</h3>
+            <div class="space-y-2">
+              <button class="w-full p-2.5 bg-gray-50 hover:bg-gray-100 border border-gray-200/80 rounded-xl text-xs font-medium text-gray-700 flex items-center justify-between transition">
+                <div class="flex items-center gap-2">
+                  <i data-lucide="file-text" class="w-4 h-4 text-gray-500"></i>
+                  <span>Grades Transcript</span>
+                </div>
+                <i data-lucide="download" class="w-3.5 h-3.5 text-gray-400"></i>
+              </button>
+              <button class="w-full p-2.5 bg-gray-50 hover:bg-gray-100 border border-gray-200/80 rounded-xl text-xs font-medium text-gray-700 flex items-center justify-between transition">
+                <div class="flex items-center gap-2">
+                  <i data-lucide="file-check" class="w-4 h-4 text-gray-500"></i>
+                  <span>Submission Summary</span>
+                </div>
+                <i data-lucide="download" class="w-3.5 h-3.5 text-gray-400"></i>
+              </button>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </main>
+
+  </div>
+
+  <script>
+    lucide.createIcons();
+  </script>
+</body>
+</html>

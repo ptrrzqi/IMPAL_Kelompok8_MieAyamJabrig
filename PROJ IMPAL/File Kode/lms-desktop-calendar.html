@@ -1,0 +1,687 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#ed1e28" />
+    <meta name="description" content="Pratinjau kalender desktop LMS, 1920 x 1080." />
+    <title>LMS Calendar — Learning Management System</title>
+    <style>
+      :root {
+        color-scheme: light;
+        font-family: Inter, "Segoe UI", Arial, sans-serif;
+        font-synthesis: none;
+        text-rendering: optimizeLegibility;
+        -webkit-font-smoothing: antialiased;
+        --red: #ed1e28;
+        --red-dark: #c31620;
+        --ink: #18253a;
+        --muted: #7d8795;
+        --line: #e9edf2;
+      }
+      *, *::before, *::after { box-sizing: border-box; }
+      html, body { width: 100%; min-width: 320px; height: 100%; min-height: 100%; margin: 0; }
+      body { min-height: 100vh; min-height: 100dvh; }
+      button, input { font: inherit; }
+      button { cursor: pointer; }
+      .app {
+        display: grid;
+        width: 100%;
+        height: 100vh;
+        height: 100dvh;
+        min-width: 1060px;
+        min-height: 760px;
+        grid-template-columns: 252px minmax(0, 1fr);
+        overflow: hidden;
+        color: var(--ink);
+        background: #f7f8fa;
+        font-size: 14px;
+      }
+      .sidebar {
+        display: flex;
+        min-width: 0;
+        flex-direction: column;
+        padding: 0 18px 20px;
+        border-right: 1px solid #edf0f3;
+        background: #fff;
+      }
+      .brand {
+        display: flex;
+        height: 83px;
+        flex: 0 0 auto;
+        align-items: center;
+        gap: 12px;
+        padding: 0 9px;
+        border-bottom: 1px solid #f0f2f5;
+      }
+      .logo { color: var(--red); font-size: 29px; font-weight: 850; letter-spacing: -2px; }
+      .brand-caption {
+        padding-left: 11px;
+        border-left: 1px solid #e1e4e9;
+        color: #647084;
+        font-size: 7px;
+        font-weight: 800;
+        letter-spacing: .8px;
+        line-height: 1.65;
+      }
+      .profile {
+        display: flex;
+        align-items: center;
+        gap: 11px;
+        margin: 20px 1px 25px;
+        padding: 10px 8px;
+        border: 1px solid #eef0f3;
+        border-radius: 9px;
+        background: #fbfcfd;
+      }
+      .avatar {
+        display: grid;
+        width: 35px;
+        height: 35px;
+        flex: 0 0 auto;
+        place-items: center;
+        border-radius: 50%;
+        color: #fff;
+        background: linear-gradient(145deg, #f36f76, #c31620);
+        font-size: 11px;
+        font-weight: 700;
+      }
+      .profile-copy { display: flex; min-width: 0; flex: 1; flex-direction: column; gap: 4px; }
+      .profile > svg { width: 16px; height: 16px; flex: 0 0 auto; }
+      .profile-copy strong, .top-user strong {
+        overflow: hidden;
+        color: #273347;
+        font-size: 11px;
+        font-weight: 700;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+      .profile-copy span, .top-user span { color: #8a94a1; font-size: 10px; }
+      .profile > svg { color: #8993a0; }
+      .nav { display: flex; flex-direction: column; gap: 5px; }
+      .nav-label {
+        margin: 0 0 7px 11px;
+        color: #a1a9b4;
+        font-size: 9px;
+        font-weight: 800;
+        letter-spacing: 1.15px;
+      }
+      .nav a {
+        position: relative;
+        display: flex;
+        min-height: 44px;
+        align-items: center;
+        gap: 12px;
+        padding: 0 12px;
+        border-radius: 7px;
+        color: #687486;
+        font-size: 12px;
+        font-weight: 550;
+        text-decoration: none;
+        transition: background 140ms ease, color 140ms ease;
+      }
+      .nav a:hover { color: var(--red); background: #fff7f7; }
+      .nav a.active { color: var(--red); background: #fff0f1; font-weight: 700; }
+      .nav a.active::before {
+        position: absolute;
+        top: 9px;
+        bottom: 9px;
+        left: -18px;
+        width: 3px;
+        border-radius: 0 4px 4px 0;
+        background: var(--red);
+        content: "";
+      }
+      .nav a svg { width: 18px; height: 18px; flex: 0 0 auto; stroke-width: 1.8; }
+      .badge {
+        display: grid;
+        width: 19px;
+        height: 19px;
+        margin-left: auto;
+        place-items: center;
+        border-radius: 50%;
+        color: var(--red);
+        background: #ffe1e3;
+        font-size: 9px;
+        font-weight: 700;
+      }
+      .nav-label.lower { margin-top: 27px; }
+      .sidebar-bottom { display: flex; flex: 1; flex-direction: column; justify-content: flex-end; }
+      .sidebar-note {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+        margin: 0 2px 18px;
+        padding: 17px 15px;
+        border: 1px solid #f7dcde;
+        border-radius: 9px;
+        background: linear-gradient(145deg, #fffafa, #fff2f3);
+      }
+      .note-icon {
+        display: grid;
+        width: 32px;
+        height: 32px;
+        margin-bottom: 3px;
+        place-items: center;
+        border-radius: 8px;
+        color: var(--red);
+        background: #fff;
+      }
+      .sidebar-note strong { color: #323e50; font-size: 11px; }
+      .sidebar-note > span:last-child { color: #808a97; font-size: 10px; line-height: 1.55; }
+      .sidebar-logo { align-self: center; color: #b1b8c2; font-size: 15px; font-weight: 850; letter-spacing: -1px; }
+      .workspace { display: grid; min-width: 0; min-height: 0; grid-template-rows: 72px minmax(0, 1fr); }
+      .topbar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 38px;
+        border-bottom: 1px solid #ebeff3;
+        background: #fff;
+      }
+      .breadcrumb, .top-actions { display: flex; align-items: center; }
+      .breadcrumb { gap: 10px; color: #929aa6; font-size: 11px; }
+      .breadcrumb strong { color: #424e5f; font-weight: 650; }
+      .top-actions { gap: 17px; }
+      .icon-button {
+        position: relative;
+        display: grid;
+        width: 34px;
+        height: 34px;
+        place-items: center;
+        border: 0;
+        border-radius: 8px;
+        color: #6d7887;
+        background: transparent;
+      }
+      .icon-button:hover { color: var(--red); background: #fff4f4; }
+      .icon-button svg { width: 19px; height: 19px; stroke-width: 1.8; }
+      .notification-dot {
+        position: absolute;
+        top: 6px;
+        right: 7px;
+        width: 7px;
+        height: 7px;
+        border: 1.5px solid #fff;
+        border-radius: 50%;
+        background: var(--red);
+      }
+      .top-divider { width: 1px; height: 29px; background: #e8ebef; }
+      .top-avatar { width: 35px; height: 35px; font-size: 10px; }
+      .top-user { display: flex; flex-direction: column; gap: 4px; }
+      .user-chevron { width: 15px; height: 15px; margin-left: -8px; color: #8d96a2; }
+      .content {
+        display: grid;
+        min-width: 0;
+        min-height: 0;
+        grid-template-rows: auto auto minmax(0, 1fr);
+        gap: 18px;
+        padding: 27px 36px 30px;
+      }
+      .heading-row, .heading-date, .toolbar, .month-controls, .toolbar-actions { display: flex; align-items: center; }
+      .heading-row { justify-content: space-between; }
+      .eyebrow, .agenda-heading p {
+        margin: 0 0 6px;
+        color: #a0a8b3;
+        font-size: 9px;
+        font-weight: 800;
+        letter-spacing: 1.2px;
+      }
+      h1 { margin: 0; color: #1e2b3e; font-size: 26px; font-weight: 720; letter-spacing: -.8px; line-height: 1.1; }
+      .subtitle { margin: 7px 0 0; color: #87919f; font-size: 12px; }
+      .heading-date {
+        gap: 11px;
+        padding: 10px 13px;
+        border: 1px solid #e8ebef;
+        border-radius: 8px;
+        background: #fff;
+      }
+      .heading-date-icon {
+        display: grid;
+        width: 34px;
+        height: 34px;
+        place-items: center;
+        border-radius: 8px;
+        color: var(--red);
+        background: #fff0f1;
+      }
+      .heading-date-icon svg { width: 18px; height: 18px; }
+      .heading-date-copy { display: flex; flex-direction: column; gap: 4px; }
+      .heading-date strong { color: #374356; font-size: 11px; }
+      .heading-date small { color: #919aa5; font-size: 9px; }
+      .heading-date > svg { width: 15px; height: 15px; margin-left: 12px; color: #919aa5; }
+      .toolbar { min-height: 46px; justify-content: space-between; }
+      .month-controls { gap: 13px; }
+      .today, .arrows button, .view-button {
+        height: 36px;
+        border: 1px solid #e4e8ed;
+        border-radius: 7px;
+        color: #526073;
+        background: #fff;
+        transition: border 140ms ease, color 140ms ease, background 140ms ease;
+      }
+      .today { padding: 0 15px; color: #3a4657; font-size: 11px; font-weight: 650; }
+      .today:hover, .arrows button:hover, .view-button:hover { border-color: #f1b8bc; color: var(--red); background: #fffafa; }
+      .arrows { display: flex; gap: 4px; }
+      .arrows button { display: grid; width: 35px; place-items: center; }
+      .arrows svg { width: 18px; height: 18px; }
+      .month-controls h2 { min-width: 180px; margin: 0 0 0 4px; color: #273347; font-size: 20px; font-weight: 700; letter-spacing: -.45px; }
+      .toolbar-actions { gap: 9px; }
+      .view-button { display: flex; align-items: center; gap: 8px; padding: 0 12px; font-size: 11px; font-weight: 600; }
+      .view-button svg { width: 16px; height: 16px; color: #7b8796; }
+      .add-button {
+        display: inline-flex;
+        height: 37px;
+        align-items: center;
+        justify-content: center;
+        gap: 7px;
+        padding: 0 15px;
+        border: 1px solid var(--red);
+        border-radius: 7px;
+        color: #fff;
+        background: var(--red);
+        box-shadow: 0 3px 9px rgba(237, 30, 40, .16);
+        font-size: 11px;
+        font-weight: 700;
+        transition: background 140ms ease, transform 140ms ease, box-shadow 140ms ease;
+      }
+      .add-button:hover { transform: translateY(-1px); background: var(--red-dark); box-shadow: 0 5px 12px rgba(237, 30, 40, .21); }
+      .add-button svg { width: 17px; height: 17px; }
+      .main-grid { display: grid; min-width: 0; min-height: 0; grid-template-columns: minmax(0, 1fr) 308px; gap: 18px; }
+      .month-card, .agenda {
+        min-width: 0;
+        min-height: 0;
+        border: 1px solid #e8ebef;
+        border-radius: 10px;
+        background: #fff;
+        box-shadow: 0 3px 12px rgba(22, 37, 58, .025);
+      }
+      .month-card { display: grid; grid-template-rows: 48px 41px minmax(0, 1fr) 48px; overflow: hidden; }
+      .calendar-caption { display: flex; align-items: center; justify-content: space-between; padding: 0 19px; border-bottom: 1px solid #eff1f4; }
+      .calendar-caption > div { display: flex; align-items: center; gap: 8px; color: #586577; font-size: 10px; font-weight: 650; }
+      .live-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--red); box-shadow: 0 0 0 3px #fff0f1; }
+      .more-button, .agenda-more {
+        display: grid;
+        width: 31px;
+        height: 31px;
+        place-items: center;
+        border: 0;
+        border-radius: 6px;
+        color: #8b95a1;
+        background: transparent;
+      }
+      .more-button:hover, .agenda-more:hover { color: var(--red); background: #fff5f5; }
+      .more-button svg, .agenda-more svg { width: 20px; height: 20px; }
+      .weekdays, .days { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); }
+      .weekdays { align-items: center; border-bottom: 1px solid #e9edf1; background: #fcfcfd; }
+      .weekdays span { padding-left: 15px; color: #828c99; font-size: 10px; font-weight: 700; letter-spacing: .15px; }
+      .weekdays span:nth-last-child(-n+2) { color: #a3abb6; }
+      .days { min-height: 0; grid-template-rows: repeat(5, minmax(0, 1fr)); }
+      .days.week-view { grid-template-rows: minmax(0, 1fr); }
+      .day {
+        position: relative;
+        display: flex;
+        min-width: 0;
+        min-height: 0;
+        align-items: flex-start;
+        justify-content: flex-start;
+        padding: 13px 14px;
+        border: 0;
+        border-right: 1px solid #eef0f3;
+        border-bottom: 1px solid #eef0f3;
+        color: #344154;
+        background: #fff;
+        text-align: left;
+        transition: background 120ms ease;
+      }
+      .day:nth-child(7n) { border-right: 0; }
+      .day:hover:not(.empty) { background: #fffafa; }
+      .day.weekend:not(.empty) { background: #fdfdfe; }
+      .day.empty { cursor: default; background: #fcfcfd; }
+      .day-number { display: grid; width: 29px; height: 29px; place-items: center; border-radius: 50%; color: #445064; font-size: 12px; font-weight: 560; }
+      .day.selected .day-number { border: 2px solid var(--red); color: var(--red); background: #fff; font-weight: 750; }
+      .event-dot {
+        position: absolute;
+        top: 60px;
+        left: 28px;
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        background: var(--red);
+        box-shadow: 0 0 0 3px rgba(237, 30, 40, .08);
+      }
+      .selected-label { position: absolute; top: 56px; left: 46px; color: #bd333b; font-size: 9px; font-weight: 650; white-space: nowrap; }
+      .legend { display: flex; align-items: center; gap: 19px; padding: 0 16px; border-top: 1px solid #eff1f4; color: #818b98; font-size: 9px; }
+      .legend > span { display: inline-flex; align-items: center; gap: 7px; }
+      .legend-dot, .legend-ring { display: inline-block; width: 7px; height: 7px; border-radius: 50%; background: var(--red); }
+      .legend-ring { width: 12px; height: 12px; border: 1.5px solid var(--red); background: transparent; }
+      .legend button { display: inline-flex; align-items: center; gap: 4px; margin-left: auto; padding: 6px 0; border: 0; color: #667285; background: transparent; font-size: 9px; font-weight: 650; }
+      .legend button:hover { color: var(--red); }
+      .legend button svg { width: 14px; height: 14px; }
+      .agenda { display: flex; flex-direction: column; padding: 18px 17px 15px; overflow: auto; }
+      .agenda-heading { display: flex; align-items: flex-start; justify-content: space-between; }
+      .agenda-heading p { margin-bottom: 6px; font-size: 8px; }
+      .agenda-heading h3 { margin: 0; color: #273347; font-size: 20px; font-weight: 720; letter-spacing: -.4px; }
+      .agenda-more { margin-top: -5px; }
+      .agenda-date { display: flex; justify-content: space-between; margin-top: 12px; padding-bottom: 15px; border-bottom: 1px solid #eff1f4; color: #8993a0; font-size: 9px; }
+      .agenda-day { color: #5d697a; font-weight: 650; }
+      .agenda-list { display: flex; flex-direction: column; gap: 10px; margin-top: 15px; }
+      .event-card { position: relative; display: flex; flex-direction: column; gap: 9px; padding: 12px 12px 12px 14px; border: 1px solid #f0e6e7; border-radius: 7px; background: #fffafb; }
+      .event-card::before { position: absolute; top: 10px; bottom: 10px; left: 0; width: 3px; border-radius: 0 3px 3px 0; background: var(--red); content: ""; }
+      .event-card.event-1 { border-color: #f3e4d6; background: #fffcf8; }
+      .event-card.event-1::before { background: #e6a458; }
+      .event-card.event-2 { border-color: #e2eaf2; background: #f9fbfd; }
+      .event-card.event-2::before { background: #718daf; }
+      .event-time { display: inline-flex; align-items: center; gap: 5px; color: #8c96a2; font-size: 9px; }
+      .event-time svg { width: 13px; height: 13px; color: #a0a9b5; }
+      .event-card > strong { color: #394659; font-size: 11px; font-weight: 700; }
+      .event-category { align-self: flex-start; padding: 4px 7px; border-radius: 4px; color: #c12c35; background: #ffe9ea; font-size: 8px; font-weight: 700; }
+      .event-1 .event-category { color: #ae772e; background: #fff1dc; }
+      .event-2 .event-category { color: #5b7595; background: #eaf1f8; }
+      .empty-agenda { padding: 22px 10px; color: #8993a0; font-size: 10px; text-align: center; }
+      .agenda-link { display: inline-flex; align-items: center; gap: 4px; align-self: flex-start; margin: 14px 0 15px; padding: 5px 0; border: 0; color: var(--red); background: transparent; font-size: 10px; font-weight: 700; }
+      .agenda-link svg { width: 15px; height: 15px; }
+      .agenda-tip { display: flex; align-items: flex-start; gap: 9px; margin-top: auto; padding: 11px 10px; border: 1px solid #f0eff1; border-radius: 7px; background: #fbfbfc; }
+      .tip-mark { display: grid; width: 17px; height: 17px; flex: 0 0 auto; place-items: center; border-radius: 50%; color: #8a94a2; background: #eceff3; font-size: 10px; font-weight: 700; }
+      .agenda-tip p { margin: 0; color: #818b98; font-size: 9px; line-height: 1.5; }
+      dialog {
+        width: min(440px, calc(100% - 36px));
+        padding: 30px;
+        border: 1px solid #f1e9ea;
+        border-radius: 12px;
+        color: var(--ink);
+        background: #fff;
+        box-shadow: 0 24px 70px rgba(24, 37, 58, .18);
+      }
+      dialog::backdrop { background: rgba(21, 31, 47, .38); backdrop-filter: blur(3px); }
+      .modal-close { float: right; border: 0; color: #778292; background: transparent; font-size: 23px; }
+      .modal-icon { display: grid; width: 42px; height: 42px; margin-bottom: 19px; place-items: center; border-radius: 10px; color: var(--red); background: #fff0f1; }
+      .modal-icon svg { width: 21px; height: 21px; }
+      dialog h2 { margin: 0; color: #263347; font-size: 23px; letter-spacing: -.5px; }
+      .modal-subtitle { margin: 8px 0 23px; color: #828d9b; font-size: 12px; }
+      dialog label { display: block; margin-bottom: 7px; color: #4d596a; font-size: 11px; font-weight: 650; }
+      dialog input { width: 100%; height: 42px; padding: 0 12px; border: 1px solid #dfe4e9; border-radius: 6px; outline: 0; color: #354154; background: #fff; font-size: 12px; }
+      dialog input:focus { border-color: var(--red); box-shadow: 0 0 0 3px rgba(237, 30, 40, .1); }
+      .modal-footer { display: flex; justify-content: flex-end; gap: 9px; margin-top: 24px; }
+      .cancel { height: 37px; padding: 0 14px; border: 1px solid #e2e6eb; border-radius: 7px; color: #5f6c7d; background: #fff; font-size: 11px; font-weight: 650; }
+      @media (max-width: 1350px) {
+        .app { grid-template-columns: 224px minmax(0, 1fr); }
+        .sidebar { padding-right: 13px; padding-left: 13px; }
+        .nav a.active::before { left: -13px; }
+        .topbar { padding-right: 25px; padding-left: 25px; }
+        .content { padding-right: 24px; padding-left: 24px; }
+        .main-grid { grid-template-columns: minmax(0, 1fr) 276px; gap: 14px; }
+      }
+      @media (max-width: 1080px) {
+        .app { min-width: 760px; grid-template-columns: 74px minmax(0, 1fr); }
+        .sidebar { align-items: center; padding: 0 8px 16px; }
+        .brand { justify-content: center; width: 100%; padding: 0; }
+        .brand-caption, .profile-copy, .profile > svg, .nav-label, .sidebar-note, .sidebar-logo { display: none; }
+        .profile { justify-content: center; width: 42px; height: 42px; margin: 19px 0 22px; padding: 0; }
+        .avatar { width: 30px; height: 30px; font-size: 9px; }
+        .nav { width: 100%; align-items: center; }
+        .nav a { width: 45px; height: 43px; justify-content: center; padding: 0; color: transparent; }
+        .nav a svg { color: #687486; }
+        .nav a.active svg { color: var(--red); }
+        .nav a.active::before { left: -8px; }
+        .workspace { grid-template-rows: 64px minmax(0, 1fr); }
+        .content { gap: 13px; padding: 20px 17px; }
+        .main-grid { grid-template-columns: minmax(0, 1fr) 245px; gap: 10px; }
+        .toolbar { flex-wrap: wrap; gap: 9px; }
+        .month-controls h2 { min-width: auto; font-size: 17px; }
+        .legend { gap: 8px; padding: 0 8px; font-size: 8px; }
+        .legend button { font-size: 0; }
+        .legend button svg { width: 16px; height: 16px; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="app">
+      <aside class="sidebar">
+        <div class="brand">
+          <span class="logo">LMS</span>
+          <span class="brand-caption">LEARNING<br />MANAGEMENT SYSTEM</span>
+        </div>
+        <div class="profile">
+          <div class="avatar">AR</div>
+          <div class="profile-copy"><strong>Alexandra Rivera</strong><span>Student account</span></div>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="m6 9 6 6 6-6" /></svg>
+        </div>
+        <nav class="nav" aria-label="Main navigation">
+          <p class="nav-label">LEARNING SPACE</p>
+          <a href="#dashboard"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="3" width="8" height="8" rx="1.5"/><rect x="13" y="3" width="8" height="5" rx="1.5"/><rect x="13" y="10" width="8" height="11" rx="1.5"/><rect x="3" y="13" width="8" height="8" rx="1.5"/></svg>Dashboard</a>
+          <a href="#courses"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="m3 8 9-5 9 5-9 5-9-5Z"/><path d="M7 10.5v5c3.3 2.2 6.7 2.2 10 0v-5M21 8v6"/></svg>My courses</a>
+          <a class="active" href="#calendar" aria-current="page"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M16 3v4M8 3v4M3 10h18"/></svg>Calendar</a>
+          <a href="#messages"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M21 11.5a8.4 8.4 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.4 8.4 0 0 1-3.8-.9L3 21l1.9-5.7a8.4 8.4 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.4 8.4 0 0 1 3.8-.9h.5a8.5 8.5 0 0 1 8 8v.5Z"/></svg>Messages<span class="badge">3</span></a>
+          <a href="#classmates"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8ZM22 21v-2a4 4 0 0 0-3-3.9M16 3.1a4 4 0 0 1 0 7.8"/></svg>Classmates</a>
+          <p class="nav-label lower">PREFERENCES</p>
+          <a href="#settings"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8Z"/><path d="m19.4 15 .1.1 1.4 1.1-1.4 2.4-1.7-.7a8 8 0 0 1-1.7 1l-.3 1.8h-2.8l-.3-1.8a8 8 0 0 1-1.7-1l-1.7.7-1.4-2.4 1.4-1.1a8 8 0 0 1 0-2L5.9 12l1.4-2.4 1.7.7a8 8 0 0 1 1.7-1l.3-1.8h2.8l.3 1.8a8 8 0 0 1 1.7 1l1.7-.7 1.4 2.4-1.4 1.1a8 8 0 0 1-.1 1.9Z"/></svg>Settings</a>
+          <a href="#help"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="10"/><path d="M9.1 9a3 3 0 0 1 5.8 1c0 2-3 3-3 3M12 17h.01"/></svg>Help center</a>
+        </nav>
+        <div class="sidebar-bottom">
+          <div class="sidebar-note">
+            <span class="note-icon"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M16 3v4M8 3v4M3 10h18"/></svg></span>
+            <strong>Keep learning on track</strong>
+            <span>Stay on top of classes and due dates.</span>
+          </div>
+          <span class="sidebar-logo">LMS</span>
+        </div>
+      </aside>
+
+      <div class="workspace">
+        <header class="topbar">
+          <div class="breadcrumb"><span>Learning space</span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="m9 18 6-6-6-6"/></svg><strong>Calendar</strong></div>
+          <div class="top-actions">
+            <button class="icon-button" type="button" aria-label="Search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg></button>
+            <button class="icon-button" type="button" aria-label="Notifications"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9M10 21h4"/></svg><i class="notification-dot"></i></button>
+            <span class="top-divider"></span>
+            <div class="avatar top-avatar">AR</div>
+            <div class="top-user"><strong>Alexandra Rivera</strong><span>Student</span></div>
+            <svg class="user-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="m6 9 6 6 6-6"/></svg>
+          </div>
+        </header>
+
+        <main class="content">
+          <div class="heading-row">
+            <div>
+              <p class="eyebrow">YOUR LEARNING SPACE</p>
+              <h1>Calendar</h1>
+              <p class="subtitle">Keep classes, assignments, and important dates in view.</p>
+            </div>
+            <div class="heading-date">
+              <span class="heading-date-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M16 3v4M8 3v4M3 10h18"/></svg></span>
+              <span class="heading-date-copy"><strong>Fall semester</strong><small>Academic calendar</small></span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="m6 9 6 6 6-6"/></svg>
+            </div>
+          </div>
+
+          <div class="toolbar">
+            <div class="month-controls">
+              <button class="today" id="today-button" type="button">Today</button>
+              <div class="arrows">
+                <button id="previous-month" type="button" aria-label="Previous month"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="m15 18-6-6 6-6"/></svg></button>
+                <button id="next-month" type="button" aria-label="Next month"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="m9 18 6-6-6-6"/></svg></button>
+              </div>
+              <h2 id="month-label">November 2025</h2>
+            </div>
+            <div class="toolbar-actions">
+              <button class="view-button" id="month-view-button" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M16 3v4M8 3v4M3 10h18"/></svg>Month <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="m6 9 6 6 6-6"/></svg></button>
+              <button class="view-button" id="week-view-button" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 6h16M4 12h16M4 18h16"/></svg>Week</button>
+              <button class="add-button" id="add-event-button" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>Add event</button>
+            </div>
+          </div>
+
+          <div class="main-grid">
+            <section class="month-card" aria-label="Monthly calendar">
+              <div class="calendar-caption">
+                <div><span class="live-dot"></span><span id="view-caption">Monthly view</span></div>
+                <button class="more-button" type="button" aria-label="Calendar options"><svg viewBox="0 0 24 24" fill="currentColor"><circle cx="5" cy="12" r="1.6"/><circle cx="12" cy="12" r="1.6"/><circle cx="19" cy="12" r="1.6"/></svg></button>
+              </div>
+              <div class="weekdays"><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span><span>Sun</span></div>
+              <div class="days" id="calendar-days"></div>
+              <div class="legend">
+                <span><i class="legend-dot"></i>Scheduled activity</span>
+                <span><i class="legend-ring"></i>Selected date</span>
+                <button id="toggle-view" type="button">Switch to week view <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="m9 18 6-6-6-6"/></svg></button>
+              </div>
+            </section>
+            <aside class="agenda">
+              <div class="agenda-heading"><div><p>DAILY AGENDA</p><h3 id="agenda-title">Nov 13</h3></div><button class="agenda-more" type="button" aria-label="Agenda options"><svg viewBox="0 0 24 24" fill="currentColor"><circle cx="5" cy="12" r="1.6"/><circle cx="12" cy="12" r="1.6"/><circle cx="19" cy="12" r="1.6"/></svg></button></div>
+              <div class="agenda-date"><span class="agenda-day" id="agenda-day">Thursday</span><span id="agenda-month">November 2025</span></div>
+              <div class="agenda-list" id="agenda-list"></div>
+              <button class="agenda-link" type="button">View day details <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="m9 18 6-6-6-6"/></svg></button>
+              <div class="agenda-tip"><span class="tip-mark">i</span><p>Small steps add up. Check your calendar regularly to stay ahead.</p></div>
+            </aside>
+          </div>
+        </main>
+      </div>
+    </div>
+
+    <dialog id="event-dialog">
+      <button class="modal-close" id="close-dialog" type="button" aria-label="Close">×</button>
+      <span class="modal-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M16 3v4M8 3v4M3 10h18"/></svg></span>
+      <p class="eyebrow">CALENDAR</p>
+      <h2>Add an event</h2>
+      <p class="modal-subtitle">Add a reminder to your learning calendar.</p>
+      <form id="event-form">
+        <label for="event-title">Event title</label>
+        <input id="event-title" name="title" placeholder="e.g. Review lecture notes" required />
+        <div class="modal-footer"><button class="cancel" id="cancel-dialog" type="button">Cancel</button><button class="add-button" type="submit">Add event</button></div>
+      </form>
+    </dialog>
+
+    <script>
+      (() => {
+        const dayDots = new Set([2, 3, 4, 11, 12, 13, 15, 17, 19, 22, 24, 29]);
+        let month = new Date(2025, 10, 1);
+        let selectedDay = 13;
+        let weekView = false;
+        let events = [
+          { day: 13, month: 10, year: 2025, title: "Interactive Media", time: "09:30 – 10:30", category: "Class" },
+          { day: 13, month: 10, year: 2025, title: "Assignment: Week 6", time: "13:00 – 14:00", category: "Deadline" },
+          { day: 13, month: 10, year: 2025, title: "Study group", time: "16:00 – 17:00", category: "Study" }
+        ];
+        const monthLabel = document.getElementById("month-label");
+        const daysElement = document.getElementById("calendar-days");
+        const agendaList = document.getElementById("agenda-list");
+        const dialog = document.getElementById("event-dialog");
+        const escapeHtml = (value) => String(value).replace(/[&<>"']/g, (char) => ({
+          "&": "&amp;", "<": "&lt;", ">": "&gt;", "\"": "&quot;", "'": "&#39;"
+        }[char]));
+
+        function renderAgenda() {
+          const selectedDate = new Date(month.getFullYear(), month.getMonth(), selectedDay);
+          document.getElementById("agenda-title").textContent =
+            `${selectedDate.toLocaleDateString("en-US", { month: "short" })} ${selectedDay}`;
+          document.getElementById("agenda-day").textContent =
+            selectedDate.toLocaleDateString("en-US", { weekday: "long" });
+          document.getElementById("agenda-month").textContent =
+            month.toLocaleDateString("en-US", { month: "long", year: "numeric" });
+          const selectedEvents = events.filter((event) =>
+            event.day === selectedDay &&
+            event.month === month.getMonth() &&
+            event.year === month.getFullYear()
+          );
+          agendaList.innerHTML = selectedEvents.length
+            ? selectedEvents.map((event, index) => `
+                <article class="event-card event-${index % 3}">
+                  <span class="event-time"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>${escapeHtml(event.time)}</span>
+                  <strong>${escapeHtml(event.title)}</strong>
+                  <span class="event-category">${escapeHtml(event.category)}</span>
+                </article>`).join("")
+            : '<div class="empty-agenda">No events planned for this date.</div>';
+        }
+
+        function renderCalendar() {
+          const year = month.getFullYear();
+          const monthIndex = month.getMonth();
+          monthLabel.textContent = month.toLocaleDateString("en-US", { month: "long", year: "numeric" });
+          document.querySelector(".month-card").setAttribute(
+            "aria-label", `${monthLabel.textContent} calendar`
+          );
+          const offset = (new Date(year, monthIndex, 1).getDay() + 6) % 7;
+          const count = new Date(year, monthIndex + 1, 0).getDate();
+          const total = Math.ceil((offset + count) / 7) * 7;
+          const cells = Array.from({ length: total }, (_, index) => {
+            const value = index - offset + 1;
+            return value > 0 && value <= count ? value : null;
+          });
+          let visibleCells = cells;
+          if (weekView) {
+            const start = Math.floor(cells.findIndex((value) => value === selectedDay) / 7) * 7;
+            visibleCells = cells.slice(start, start + 7);
+          }
+          daysElement.classList.toggle("week-view", weekView);
+          document.getElementById("view-caption").textContent = weekView ? "Week view" : "Monthly view";
+          document.getElementById("toggle-view").innerHTML = weekView
+            ? 'Switch to month view <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="m9 18 6-6-6-6"/></svg>'
+            : 'Switch to week view <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="m9 18 6-6-6-6"/></svg>';
+          daysElement.innerHTML = visibleCells.map((day, index) => {
+            const empty = day === null;
+            const weekend = index % 7 > 4;
+            const hasEvent = !empty && (
+              (monthIndex === 10 && year === 2025 && dayDots.has(day)) ||
+              events.some((event) => event.day === day && event.month === monthIndex && event.year === year)
+            );
+            return `<button class="day${empty ? " empty" : ""}${weekend ? " weekend" : ""}${day === selectedDay ? " selected" : ""}" type="button" ${empty ? "disabled" : `data-day="${day}" aria-label="${escapeHtml(monthLabel.textContent)} ${day}"`}>
+              ${empty ? "" : `<span class="day-number">${day}</span>${hasEvent ? '<span class="event-dot"></span>' : ""}${day === selectedDay ? '<span class="selected-label">Selected day</span>' : ""}`}
+            </button>`;
+          }).join("");
+          daysElement.querySelectorAll("[data-day]").forEach((button) => {
+            button.addEventListener("click", () => {
+              selectedDay = Number(button.dataset.day);
+              renderCalendar();
+              renderAgenda();
+            });
+          });
+          renderAgenda();
+        }
+
+        document.getElementById("previous-month").addEventListener("click", () => {
+          month = new Date(month.getFullYear(), month.getMonth() - 1, 1);
+          selectedDay = 1;
+          renderCalendar();
+        });
+        document.getElementById("next-month").addEventListener("click", () => {
+          month = new Date(month.getFullYear(), month.getMonth() + 1, 1);
+          selectedDay = 1;
+          renderCalendar();
+        });
+        document.getElementById("today-button").addEventListener("click", () => {
+          const today = new Date();
+          month = new Date(today.getFullYear(), today.getMonth(), 1);
+          selectedDay = today.getDate();
+          renderCalendar();
+        });
+        const setView = (nextView) => {
+          weekView = nextView;
+          renderCalendar();
+        };
+        document.getElementById("month-view-button").addEventListener("click", () => setView(false));
+        document.getElementById("week-view-button").addEventListener("click", () => setView(true));
+        document.getElementById("toggle-view").addEventListener("click", () => setView(!weekView));
+        document.getElementById("add-event-button").addEventListener("click", () => dialog.showModal());
+        document.getElementById("close-dialog").addEventListener("click", () => dialog.close());
+        document.getElementById("cancel-dialog").addEventListener("click", () => dialog.close());
+        document.getElementById("event-form").addEventListener("submit", (event) => {
+          event.preventDefault();
+          const title = new FormData(event.currentTarget).get("title").toString().trim();
+          if (!title) return;
+          events.push({
+            day: selectedDay,
+            month: month.getMonth(),
+            year: month.getFullYear(),
+            title,
+            time: "All day",
+            category: "New event"
+          });
+          event.currentTarget.reset();
+          dialog.close();
+          renderCalendar();
+        });
+        renderCalendar();
+      })();
+    </script>
+  </body>
+</html>
