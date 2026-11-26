@@ -22,7 +22,7 @@
                 </div>
                 <h1 class="display-6 fw-bold mb-2">Selamat Datang, {{ $user->name }}!</h1>
                 <p class="lead mb-0 text-white text-opacity-90" style="font-size: 1rem;">
-                    Portal pembelajaran digital CeLOE LMS Telkom University. Akses materi perkuliahan, forum diskusi, dan tugas akademik Anda di sini.
+                    Portal pembelajaran digital LMS. Akses materi perkuliahan, forum diskusi, dan tugas akademik Anda di sini.
                 </p>
             </div>
         </div>
@@ -59,12 +59,12 @@
                         <span class="fw-semibold text-dark">{{ $user->username }}</span>
                     </div>
                     <div class="d-flex justify-content-between py-1 border-bottom border-light">
-                        <span class="text-muted">Email SSO</span>
+                        <span class="text-muted">Email</span>
                         <span class="fw-semibold text-dark text-truncate" style="max-width: 180px;" title="{{ $user->email }}">{{ $user->email }}</span>
                     </div>
                     <div class="d-flex justify-content-between py-1 border-bottom border-light">
                         <span class="text-muted">Program Studi</span>
-                        <span class="fw-semibold text-dark">{{ $user->prodi ?? 'Telkom University' }}</span>
+                        <span class="fw-semibold text-dark">{{ $user->prodi ?? 'Umum' }}</span>
                     </div>
                     <div class="d-flex justify-content-between py-1 border-bottom border-light">
                         <span class="text-muted">Status Akun</span>

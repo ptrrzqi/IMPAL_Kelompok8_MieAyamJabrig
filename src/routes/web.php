@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
-| Web Routes - CeLOE LMS Prototipe Telkom University
+| Web Routes - LMS Prototipe
 |--------------------------------------------------------------------------
 */
 

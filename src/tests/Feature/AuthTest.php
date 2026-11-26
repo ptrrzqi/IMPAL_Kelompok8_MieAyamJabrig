@@ -27,7 +27,7 @@ class AuthTest extends TestCase
         $response = $this->get('/login');
 
         $response->assertStatus(200);
-        $response->assertSee('CeLOE LMS');
+        $response->assertSee('LMS Portal');
         $response->assertSee('Mahasiswa');
         $response->assertSee('Dosen');
         $response->assertSee('Admin');
@@ -76,7 +76,7 @@ class AuthTest extends TestCase
     public function test_user_can_authenticate_with_email(): void
     {
         $response = $this->post('/login', [
-            'username' => 'mahasiswa@student.telkomuniversity.ac.id',
+            'username' => 'mahasiswa@student.lms.local',
             'password' => 'password123',
         ]);
 

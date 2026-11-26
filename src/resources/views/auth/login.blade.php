@@ -4,7 +4,7 @@
 
 @section('content')
 <div class="auth-card">
-    <!-- Left Hero Panel (Telkom Red Gradient with Orbital Graphics) -->
+    <!-- Left Hero Panel (Red Gradient with Orbital Graphics) -->
     <div class="auth-hero-panel">
         <!-- SVG Orbital Graphic from Reference Design -->
         <svg class="hero-orbital-graphic" viewBox="0 0 500 500" aria-hidden="true">
@@ -174,7 +174,7 @@
                     <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
                     <path d="m9 12 2 2 4-4"/>
                 </svg>
-                <span>Autentikasi prototipe CeLOE LMS Telkom University</span>
+                <span>Autentikasi prototipe LMS Portal</span>
             </div>
         </form>
 
@@ -217,7 +217,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body text-secondary small py-3">
-                CeLOE LMS Telkom University menggunakan kuki sesi esensial untuk menjaga status autentikasi, preferensi bahasa, dan keamanan sesi pengguna. Data kuki tidak dibagikan kepada pihak ketiga.
+                LMS Portal menggunakan kuki sesi esensial untuk menjaga status autentikasi, preferensi bahasa, dan keamanan sesi pengguna. Data kuki tidak dibagikan kepada pihak ketiga.
             </div>
             <div class="modal-footer border-top-0 pt-0">
                 <button type="button" class="btn btn-sm rounded-3 px-3 text-white" style="background-color: #ed1e28;" data-bs-dismiss="modal">Saya Mengerti</button>
@@ -241,7 +241,7 @@
                     <li><strong>Dosen:</strong> NIP <code>19850101201012</code> / Password: <code>password123</code></li>
                     <li><strong>Admin:</strong> Username <code>admin.lms</code> / Password: <code>password123</code></li>
                 </ul>
-                <p class="mb-0 text-muted">Untuk kendala akun akademik riil, hubungi Unit IT Telkom University.</p>
+                <p class="mb-0 text-muted">Untuk kendala akun, silakan hubungi Administrator LMS.</p>
             </div>
             <div class="modal-footer border-top-0 pt-0">
                 <button type="button" class="btn btn-sm rounded-3 px-3 text-white" style="background-color: #ed1e28;" data-bs-dismiss="modal">Tutup</button>

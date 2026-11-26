@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="CeLOE LMS - prototipe Learning Management System Telkom University (Kelompok 8 MieAyamJabrig).">
+    <meta name="description" content="LMS Portal - prototipe Learning Management System (Kelompok 8 MieAyamJabrig).">
     <title>{{ config('app.name') }}</title>
     @vite(['resources/css/app.scss', 'resources/js/app.js'])
 </head>

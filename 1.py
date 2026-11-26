@@ -11,7 +11,7 @@ DB_CONFIG = {
     'host': 'localhost',
     'user': 'root',
     'password': '',
-    'database': 'celoe_lms',
+    'database': 'lms_db',
     'port': 3306
 }
 
@@ -71,9 +71,9 @@ def init_database_tables():
 
         cursor.execute("""
         INSERT INTO user (idPengguna, namaLengkap, email, password, role, statusAktif) VALUES
-        ('103012400120', 'Fauzan Ahmad Choiry', 'fauzan@student.telkomuniversity.ac.id', '12345678', 'Mahasiswa', 1),
-        ('198703152014041001', 'Dr. Ir. Budi Santoso, M.T.', 'budi@telkomuniversity.ac.id', '12345678', 'Dosen', 1),
-        ('admin01', 'Administrator CeLOE', 'admin@telkomuniversity.ac.id', '12345678', 'Administrator', 1)
+        ('103012400120', 'Fauzan Ahmad Choiry', 'fauzan@student.lms.local', '12345678', 'Mahasiswa', 1),
+        ('198703152014041001', 'Dr. Ir. Budi Santoso, M.T.', 'budi@lms.local', '12345678', 'Dosen', 1),
+        ('admin01', 'Administrator LMS', 'admin@lms.local', '12345678', 'Administrator', 1)
         ON DUPLICATE KEY UPDATE namaLengkap = VALUES(namaLengkap);
         """)
 
@@ -262,7 +262,7 @@ def api_submit_tugas():
         print(f"[phpMyAdmin] Submission Tugas Sukses: {id_submission} oleh NIM {nim}")
         return jsonify({
             "status": "success",
-            "message": "Tugas Anda berhasil diserahkan ke sistem CeLOE!",
+            "message": "Tugas Anda berhasil diserahkan ke sistem LMS!",
             "idSubmission": id_submission,
             "waktuKumpul": waktu_str,
             "namaTugas": tugas['namaTugas']
@@ -298,8 +298,8 @@ def api_list_submissions():
 if __name__ == '__main__':
     init_database_tables()
     print("==================================================")
-    print("CeLOE LMS Web & Backend API Aktif")
-    print("Database : celoe_lms (MySQL localhost:3306)")
+    print("LMS Portal Web & Backend API Aktif")
+    print("Database : lms_db (MySQL localhost:3306)")
     print("Buka Web : http://127.0.0.1:5000")
     print("==================================================")
     app.run(host='127.0.0.1', port=5000, debug=True)

@@ -21,7 +21,7 @@ in {
 
   # Start the stack on boot (containers also use restart: unless-stopped)
   systemd.services.lms = {
-    description = "CeLOE LMS docker compose stack";
+    description = "LMS Portal docker compose stack";
     wantedBy = [ "multi-user.target" ];
     after = [ "docker.service" "network-online.target" ];
     requires = [ "docker.service" ];
@@ -40,7 +40,7 @@ in {
     timerConfig = { OnCalendar = "daily"; Persistent = true; };
   };
   systemd.services.lms-backup = {
-    description = "CeLOE LMS nightly database backup";
+    description = "LMS Portal nightly database backup";
     path = [ pkgs.docker pkgs.gzip pkgs.findutils pkgs.coreutils ];
     serviceConfig = { Type = "oneshot"; WorkingDirectory = repoDir; };
     script = ''

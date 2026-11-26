@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Hash;
 class UserSeeder extends Seeder
 {
     /**
-     * Run the database seeds for CeLOE LMS prototype.
+     * Run the database seeds for LMS prototype.
      */
     public function run(): void
     {
@@ -19,7 +19,7 @@ class UserSeeder extends Seeder
             [
                 'username'          => '103012400346',
                 'name'              => 'Budi Mahasiswa Pratama',
-                'email'             => 'mahasiswa@student.telkomuniversity.ac.id',
+                'email'             => 'mahasiswa@student.lms.local',
                 'role'              => User::ROLE_MAHASISWA,
                 'prodi'             => 'S1 Informatika',
                 'phone'             => '081234567890',
@@ -29,7 +29,7 @@ class UserSeeder extends Seeder
             [
                 'username'          => '19850101201012',
                 'name'              => 'Dr. Ir. Siti Dosen Rahayu, M.T.',
-                'email'             => 'dosen@telkomuniversity.ac.id',
+                'email'             => 'dosen@lms.local',
                 'role'              => User::ROLE_DOSEN,
                 'prodi'             => 'S1 Informatika',
                 'phone'             => '081298765432',
@@ -38,10 +38,10 @@ class UserSeeder extends Seeder
             ],
             [
                 'username'          => 'admin.lms',
-                'name'              => 'Administrator CeLOE LMS',
-                'email'             => 'admin@telkomuniversity.ac.id',
+                'name'              => 'Administrator LMS',
+                'email'             => 'admin@lms.local',
                 'role'              => User::ROLE_ADMIN,
-                'prodi'             => 'Bagian Sistem Informasi & CeLOE',
+                'prodi'             => 'Bagian Sistem Informasi & LMS',
                 'phone'             => '081122334455',
                 'password'          => $defaultPassword,
                 'email_verified_at' => now(),

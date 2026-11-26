@@ -1,6 +1,6 @@
 #Requires -Version 5.1
 <#
-  Menjalankan CeLOE LMS secara lokal TANPA Docker (PHP + SQLite).
+  Menjalankan LMS Portal secara lokal TANPA Docker (PHP + SQLite).
   Otomatis menangani setup pertama kali (Composer, .env SQLite, APP_KEY, Vite build, migrate & seed).
   Buka http://localhost:8000 setelah server berjalan. Ctrl+C untuk berhenti.
   -ResetDb : hapus dan isi ulang data demo.
@@ -130,7 +130,7 @@ try {
         & $php artisan storage:link 2>$null | Out-Null
     }
 
-    Write-Host "CeLOE LMS: http://localhost:8000" -ForegroundColor Green
+    Write-Host "LMS Portal: http://localhost:8000" -ForegroundColor Green
     & $php artisan serve --host=127.0.0.1 --port=8000
 }
 finally {

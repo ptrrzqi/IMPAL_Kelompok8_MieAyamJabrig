@@ -18,7 +18,7 @@ class User extends Authenticatable
     use HasFactory, Notifiable;
 
     /**
-     * Role constants matching CeLOE LMS specification
+     * Role constants matching LMS specification
      */
     public const ROLE_MAHASISWA = 'mahasiswa';
     public const ROLE_DOSEN     = 'dosen';

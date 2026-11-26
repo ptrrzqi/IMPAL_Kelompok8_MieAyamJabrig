@@ -1,7 +1,7 @@
 #Requires -Version 5.1
 <#
 .SYNOPSIS
-  Daily development helper script for CeLOE LMS.
+  Daily development helper script for LMS Portal.
 
 .PARAMETER ResetDb
   Wipes and re-runs all migrations and seeders on the temporary development database.

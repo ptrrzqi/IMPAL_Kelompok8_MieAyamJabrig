@@ -3,8 +3,8 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="CeLOE LMS - Portal Pembelajaran Digital Telkom University">
-    <title>@yield('title', 'Beranda') | {{ config('app.name', 'CeLOE LMS') }}</title>
+    <meta name="description" content="LMS Portal - Platform Pembelajaran Digital">
+    <title>@yield('title', 'Beranda') | {{ config('app.name', 'LMS Portal') }}</title>
 
     <!-- Google Fonts: Plus Jakarta Sans -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -24,8 +24,8 @@
                 <span style="font-size: 1.5rem; font-weight: 800; color: #ed1e28; letter-spacing: -0.5px; line-height: 1;">LMS</span>
                 <span class="mx-2" style="width: 1.5px; height: 20px; background-color: #cbd5e1; display: inline-block;"></span>
                 <div class="d-flex flex-column text-muted lh-1" style="font-size: 0.55rem; font-weight: 700; letter-spacing: 0.8px;">
-                    <span>TELKOM UNIVERSITY</span>
-                    <span class="text-danger" style="color: #ed1e28 !important;">CeLOE PORTAL</span>
+                    <span>LEARNING</span>
+                    <span class="text-danger" style="color: #ed1e28 !important;">MANAGEMENT SYSTEM</span>
                 </div>
             </a>
 
@@ -100,7 +100,7 @@
     <!-- Footer -->
     <footer class="bg-white border-top py-3 text-center text-muted small mt-auto">
         <div class="container-fluid">
-            <span>&copy; {{ date('Y') }} CeLOE LMS - Telkom University. Prototipe Implementasi Perangkat Lunak Kelompok 8.</span>
+            <span>&copy; {{ date('Y') }} LMS Portal. Prototipe Implementasi Perangkat Lunak Kelompok 8.</span>
         </div>
     </footer>
 

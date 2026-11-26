@@ -1,10 +1,10 @@
-// CeLOE LMS - Telkom University Red Design System (SCSS)
-// Brand Red: #ed1e28 (Telkom University Official Red)
+// LMS Portal - Red Design System (SCSS)
+// Brand Red: #ed1e28
 
 // 1. Google Font & Base Tokens
 $font-family-base: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
 
-// Brand Colors (Telkom Red #ed1e28 Palette)
+// Brand Colors (Red #ed1e28 Palette)
 $brand-red:         #ed1e28;
 $brand-red-hover:   #c9141d;
 $brand-red-dark:    #9b0f15;
@@ -165,7 +165,7 @@ body.auth-body {
     }
 }
 
-// 6. Left Panel (Hero - Telkom Red)
+// 6. Left Panel (Hero - Brand Red)
 .auth-hero-panel {
     flex: 0 0 46%;
     background: linear-gradient(155deg, #ed1e28 0%, #b8141d 50%, #7e0c12 100%);

@@ -23,7 +23,7 @@ class LoginController extends Controller
     protected int $decaySeconds = 60;
 
     /**
-     * Show the CeLOE LMS login form (FR-01 / L001).
+     * Show the LMS login form (FR-01 / L001).
      */
     public function showLoginForm(): View|RedirectResponse
     {
@@ -85,7 +85,7 @@ class LoginController extends Controller
     }
 
     /**
-     * Log the user out of CeLOE LMS.
+     * Log the user out of LMS.
      */
     public function logout(Request $request): RedirectResponse
     {
@@ -94,7 +94,7 @@ class LoginController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return redirect()->route('login')->with('status', 'Anda telah berhasil keluar dari akun CeLOE LMS.');
+        return redirect()->route('login')->with('status', 'Anda telah berhasil keluar dari akun LMS.');
     }
 
     /**

@@ -22,16 +22,16 @@ class CourseSeeder extends Seeder
         $mhs1   = User::where('username', '103012400346')->firstOrFail();
 
         $dosen2 = User::updateOrCreate(['username' => '19900215201503'], [
-            'name' => 'Ahmad Fauzi, S.Kom., M.Kom.', 'email' => 'dosen2@telkomuniversity.ac.id',
+            'name' => 'Ahmad Fauzi, S.Kom., M.Kom.', 'email' => 'dosen2@lms.local',
             'role' => User::ROLE_DOSEN, 'prodi' => 'S1 Informatika', 'password' => $password, 'email_verified_at' => now(),
         ]);
         $mhs2 = User::updateOrCreate(['username' => '103012400417'], [
-            'name' => 'Citra Mahasiswi Lestari', 'email' => 'mahasiswa2@student.telkomuniversity.ac.id',
+            'name' => 'Citra Mahasiswi Lestari', 'email' => 'mahasiswa2@student.lms.local',
             'role' => User::ROLE_MAHASISWA, 'prodi' => 'S1 Informatika', 'password' => $password, 'email_verified_at' => now(),
         ]);
         // Mahasiswa tanpa mata kuliah -> demo halaman "Tidak Terdaftar" (P002)
         User::updateOrCreate(['username' => '103012400022'], [
-            'name' => 'Dimas Mahasiswa Baru', 'email' => 'mahasiswa3@student.telkomuniversity.ac.id',
+            'name' => 'Dimas Mahasiswa Baru', 'email' => 'mahasiswa3@student.lms.local',
             'role' => User::ROLE_MAHASISWA, 'prodi' => 'S1 Informatika', 'password' => $password, 'email_verified_at' => now(),
         ]);
 
@@ -132,7 +132,7 @@ class CourseSeeder extends Seeder
     private function pdf(string $text): string
     {
         $text = str_replace(['\\', '(', ')'], ['\\\\', '\\(', '\\)'], $text);
-        $stream = "BT /F1 16 Tf 60 760 Td ({$text}) Tj 0 -30 Td /F1 11 Tf (CeLOE LMS - Telkom University - data dummy prototipe) Tj ET";
+        $stream = "BT /F1 16 Tf 60 760 Td ({$text}) Tj 0 -30 Td /F1 11 Tf (LMS Portal - data dummy prototipe) Tj ET";
         $objs = [
             '<< /Type /Catalog /Pages 2 0 R >>',
             '<< /Type /Pages /Kids [3 0 R] /Count 1 >>',

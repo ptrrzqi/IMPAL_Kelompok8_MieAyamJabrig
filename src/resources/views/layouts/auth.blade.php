@@ -3,8 +3,8 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="CeLOE LMS - Portal Pembelajaran Digital Telkom University">
-    <title>@yield('title', 'Masuk ke Akun') | {{ config('app.name', 'CeLOE LMS') }}</title>
+    <meta name="description" content="LMS Portal - Platform Pembelajaran Digital">
+    <title>@yield('title', 'Masuk ke Akun') | {{ config('app.name', 'LMS Portal') }}</title>
 
     <!-- Google Fonts: Plus Jakarta Sans for the modern academic aesthetic in Login Page.jpeg -->
     <link rel="preconnect" href="https://fonts.googleapis.com">

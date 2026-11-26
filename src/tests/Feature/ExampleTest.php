@@ -7,7 +7,7 @@ use Tests\TestCase;
 class ExampleTest extends TestCase
 {
     /**
-     * Test that root URL redirects guests to the CeLOE LMS login page.
+     * Test that root URL redirects guests to the LMS login page.
      */
     public function test_the_application_redirects_root_to_login(): void
     {
